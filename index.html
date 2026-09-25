@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Bloom — Personal Expense Tracker</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Manrope:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="bg-blob blob-a" aria-hidden="true"></div>
+    <div class="bg-blob blob-b" aria-hidden="true"></div>
+    <div class="bg-blob blob-c" aria-hidden="true"></div>
+
+    <header class="hero">
+      <div class="hero-inner">
+        <h1>Bloom <span class="hero-coin">🌸</span></h1>
+        <p class="tagline">
+          Your money, growing somewhere you can actually see it.
+        </p>
+      </div>
+    </header>
+
+    <main>
+      <!-- Budget overview: one hero panel, not identical cards -->
+      <section class="wallet-panel" aria-label="Budget overview">
+        <div class="ring-wrap">
+          <svg
+            class="progress-ring"
+            viewBox="0 0 180 180"
+            role="img"
+            aria-labelledby="ringTitle"
+          >
+            <title id="ringTitle">Budget used</title>
+            <circle class="ring-track" cx="90" cy="90" r="78"></circle>
+            <circle
+              class="ring-fill"
+              id="ringFill"
+              cx="90"
+              cy="90"
+              r="78"
+            ></circle>
+          </svg>
+          <div class="ring-label">
+            <span id="percentSpent">0%</span>
+            <small>of budget used</small>
+          </div>
+        </div>
+
+        <div class="wallet-stats">
+          <div class="stat-pill budget">
+            <span class="stat-label">Monthly budget</span>
+            <span class="stat-value" id="budgetValue">₹0</span>
+          </div>
+          <div class="stat-pill spent">
+            <span class="stat-label">Total spent</span>
+            <span class="stat-value" id="spentValue">₹0</span>
+          </div>
+          <div class="stat-pill remaining">
+            <span class="stat-label">Remaining</span>
+            <span class="stat-value" id="remainingValue">₹0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Set budget -->
+      <section class="budget-setter">
+        <form id="budgetForm">
+          <label for="budgetInput">Set your monthly budget</label>
+          <div class="budget-input-row">
+            <span class="currency">₹</span>
+            <input
+              type="number"
+              id="budgetInput"
+              min="0"
+              step="1"
+              placeholder="10000"
+              inputmode="numeric"
+            />
+            <button type="submit">Save budget</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- Add expense -->
+      <section class="add-expense-card">
+        <h2>Add an expense</h2>
+        <form id="expenseForm" novalidate>
+          <div class="field">
+            <label for="descInput">Description</label>
+            <input
+              type="text"
+              id="descInput"
+              placeholder="Lunch with friends"
+              maxlength="60"
+            />
+          </div>
+
+          <div class="field-row">
+            <div class="field">
+              <label for="amountInput">Amount</label>
+              <div class="amount-input-wrap">
+                <span class="currency">₹</span>
+                <input
+                  type="number"
+                  id="amountInput"
+                  min="0.01"
+                  step="0.01"
+                  placeholder="150"
+                  inputmode="decimal"
+                />
+              </div>
+            </div>
+            <div class="field">
+              <label for="dateInput">Date</label>
+              <input type="date" id="dateInput" />
+            </div>
+          </div>
+
+          <fieldset class="category-field">
+            <legend>Category</legend>
+            <div class="category-chips" id="categoryChips"></div>
+          </fieldset>
+
+          <button type="submit" class="add-btn">Add expense</button>
+          <p class="form-error" id="formError" role="alert"></p>
+        </form>
+      </section>
+
+      <!-- Search + filter -->
+      <section class="list-controls">
+        <div class="search-wrap">
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input
+            type="search"
+            id="searchInput"
+            placeholder="Search expenses…"
+            aria-label="Search expenses"
+          />
+        </div>
+        <div class="filter-wrap">
+          <label for="categoryFilter">Show</label>
+          <select id="categoryFilter"></select>
+        </div>
+      </section>
+
+      <!-- Expense list -->
+      <section class="expense-list-section" aria-label="Expenses">
+        <div class="list-header">
+          <span>Description</span>
+          <span>Category</span>
+          <span>Amount</span>
+          <span>Date</span>
+          <span class="sr-only">Actions</span>
+        </div>
+        <ul id="expenseList" class="expense-list"></ul>
+        <p id="emptyState" class="empty-state" hidden>
+          Nothing here yet — add your first expense above 🌱
+        </p>
+      </section>
+    </main>
+
+    <footer>
+      <p>
+        Stored locally in your browser with <code>localStorage</code> — nothing
+        leaves this device.
+      </p>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>
